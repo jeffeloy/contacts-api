@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { clients } from "../graphql/config/clientConfig";
 
-dotenv.config();
 const router = express.Router();
 
 const SECRET = process.env.SECRET_KEY as string;

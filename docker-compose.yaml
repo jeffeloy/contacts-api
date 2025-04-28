@@ -19,7 +19,6 @@ services:
       - mysql
     volumes:
       - .:/app
-      - /app/node_modules
 
   mongo:
     image: mongo:8.0.3

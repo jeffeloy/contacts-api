@@ -10,9 +10,13 @@ import { buildSchema } from "type-graphql";
 import { authChecker } from "./auth/authChecker";
 import authLogin from "./auth/login";
 import { context } from "./context";
+import { connectMongo } from "./database/mongo";
+import { prisma } from "./database/prisma-client";
 import { ContactsResolver } from "./graphql/resolvers/contacts-resolver";
 
 async function bootstrap() {
+  prisma.$connect();
+  await connectMongo();
   const schema = await buildSchema({
     resolvers: [ContactsResolver],
     authChecker,
