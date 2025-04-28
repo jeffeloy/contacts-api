@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: graphql-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/contacts-db
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=contacts-db
+    command: npm run dev
+    depends_on:
+      - mongo
+      - mysql
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  mongo:
+    image: mongo:8.0.3
+    container_name: mongodb
+    environment:
+      - MONGO_ROOT_USERNAME=root
+      - MONGO_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  mysql:
+    image: mysql:8.0.30-debian
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: contacts-db
+    ports:
+      - "3307:3307"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mongo-data:
+  mysql-data:
