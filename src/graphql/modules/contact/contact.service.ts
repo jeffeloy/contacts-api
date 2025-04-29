@@ -1,5 +1,5 @@
 import type { ClientConfig } from "../../config/clientConfig";
-import { ContactInput } from "./contact.entity";
+import type { ContactInput } from "./contact.entity";
 import { ContactRepository } from "./contact.repository";
 
 export class ContactService {
@@ -9,9 +9,14 @@ export class ContactService {
     this.repository = new ContactRepository();
   }
 
-  async addContacts(client: ClientConfig, contacts: ContactInput[]): Promise<void> {
+  async addContacts(
+    client: ClientConfig,
+    contacts: ContactInput[],
+  ): Promise<void> {
     if (client.dbType === "mysql") {
-      const formattedContacts = contacts.map(contact => this.formatContact(client, contact));
+      const formattedContacts = contacts.map((contact) =>
+        this.formatContact(client, contact),
+      );
       await this.repository.saveToMysql(formattedContacts);
     } else if (client.dbType === "mongodb") {
       await this.repository.saveToMongo(contacts);
@@ -30,7 +35,10 @@ export class ContactService {
     }
   }
 
-  private formatContact(client: ClientConfig, contact: ContactInput): ContactInput {
+  private formatContact(
+    client: ClientConfig,
+    contact: ContactInput,
+  ): ContactInput {
     if (contact.name && client.isFormatNameToUpperCase) {
       contact.name = this.toUpperCaseName(contact.name);
     }
@@ -40,20 +48,20 @@ export class ContactService {
     return contact;
   }
 
-  private toUpperCaseName(name: string): string {
+  toUpperCaseName(name: string): string {
     return name.toUpperCase();
   }
 
-  private formatPhone(phone: string): string {
+  formatPhone(phone: string): string {
     if (phone.length !== 13 || !phone.startsWith("55")) {
       throw new Error("Invalid cell_phone: expected format 5541999999999");
     }
-  
+
     const countryCode = "+" + phone.slice(0, 2);
     const areaCode = phone.slice(2, 4);
     const firstPart = phone.slice(4, 9);
     const secondPart = phone.slice(9);
-  
+
     return `${countryCode} (${areaCode}) ${firstPart}-${secondPart}`;
   }
 }
