@@ -12,13 +12,13 @@ import authLogin from "./auth/login";
 import { context } from "./context";
 import { connectMongo } from "./database/mongo";
 import { prisma } from "./database/prisma-client";
-import { ContactsResolver } from "./graphql/resolvers/contacts-resolver";
+import { ContactResolver } from "./graphql/resolvers/contact-resolver";
 
 async function bootstrap() {
   prisma.$connect();
   await connectMongo();
   const schema = await buildSchema({
-    resolvers: [ContactsResolver],
+    resolvers: [ContactResolver],
     authChecker,
     emitSchemaFile: path.resolve(__dirname, "schema.gql"),
   });

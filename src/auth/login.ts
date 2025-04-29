@@ -14,7 +14,7 @@ router.post("/auth", (req, res) => {
   if (!clientFound) {
     return res.status(401).json({ error: "Invalid client" });
   }
-  const token = jwt.sign({ client: clientId }, SECRET, { expiresIn: "1d" });
+  const token = jwt.sign({ clientId: clientId }, SECRET, { expiresIn: "1h" });
   return res.json({ token });
 });
 
