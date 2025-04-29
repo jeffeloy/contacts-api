@@ -13,12 +13,13 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
       - MYSQL_DATABASE=contacts-db
-    command: npm run dev
+    command: sh -c "npx prisma generate && npm run dev"
     depends_on:
       - mongo
       - mysql
     volumes:
       - .:/app
+      - /app/node_modules
 
   mongo:
     image: mongo:8.0.3

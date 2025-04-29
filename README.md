@@ -34,6 +34,7 @@ cp .env.example .env
 ```
 
 3. Set your environment variables:
+
 ```env
 SECRET_KEY="your_secret_key"
 DATABASE_URL="mysql://root:root@mysql:3306/contacts-db"
@@ -43,9 +44,11 @@ MONGO_URI=mongodb://localhost:27017/contacts-db
 ## 🚀 Running the Project
 
 4. Execute the project with [Docker Compose](https://docs.docker.com/compose/)
+
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
+
 This will bring up:
 
 The API (Node.js)
@@ -54,21 +57,26 @@ MongoDB
 
 5. Make sure your databases are running:
 
-6. Access the API at http://localhost:4000/graphql
+6. Access the API GraphQL playground at http://localhost:4000/graphql
 
 ## 🔐 Authentication - Generating JWT Token
 
 Auth Route
+
 ```bash
 POST http://localhost:4000/auth
 ```
+
 Request Body
+
 ```json
 {
-  "clientId": "clientId" // clientsConfig in ./src/graphql/config/clientConfig.ts
+  "clientId": "clientId" // Available client IDs are in the ./src/graphql/config/clientConfig.ts file
 }
-  ```
+```
+
 Response Body
+
 ```json
 {
   "token": "seu-token-jwt-aqui"
@@ -76,17 +84,21 @@ Response Body
 ```
 
 ## 📚 Usage Example in GraphQL Playground
+
 ```
 Authorization: Bearer seu-token-jwt-aqui
 ```
 
 ## ➡️ Mutation to add contacts
+
 ```graphql
 mutation AddContacts($contacts: [ContactInput!]!) {
   addContacts(contacts: $contacts)
 }
 ```
+
 Variables
+
 ```json
 {
   "contacts": [
@@ -99,6 +111,7 @@ Variables
 ```
 
 ## ➡️ Query to list contacts
+
 ```graphql
 query {
   contacts {
