@@ -12,7 +12,7 @@ import authLogin from "./auth/login";
 import { context } from "./context";
 import { connectMongo } from "./database/mongo";
 import { prisma } from "./database/prisma-client";
-import { ContactResolver } from "./graphql/resolvers/contact-resolver";
+import { ContactResolver } from "./graphql/modules/contact/contact.resolver";
 
 async function bootstrap() {
   prisma.$connect();
