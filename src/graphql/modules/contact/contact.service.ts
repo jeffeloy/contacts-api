@@ -18,4 +18,14 @@ export class ContactService {
       throw new Error("Invalid client");
     }
   }
+
+  async getContacts(dbType: string) {
+    if (dbType === "mysql") {
+      return await this.repository.findAllMySql();
+    } else if (dbType === "mongodb") {
+      return await this.repository.findAllMongo();
+    } else {
+      throw new Error("Invalid client");
+    }
+  }
 }

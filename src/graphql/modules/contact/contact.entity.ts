@@ -24,3 +24,15 @@ export class ContactInput {
   @Field()
   cell_phone: string;
 }
+
+@ObjectType()
+export class ContactInterface {
+  @Field()
+  id: string;
+
+  @Field()
+  name: string;
+
+  @Field()
+  cell_phone: string;
+}
