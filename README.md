@@ -113,11 +113,11 @@ Variables
 ## ➡️ Query to list contacts
 
 ```graphql
-query {
-  contacts {
+query GetContacts {
+  getContacts {
     id
     name
-    phone
+    cell_phone
   }
 }
 ```
