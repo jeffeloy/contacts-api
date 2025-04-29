@@ -1,3 +1,11 @@
+export type ClientConfig = {
+  id: string;
+  name: string;
+  dbType: string;
+  isFormatNameToUpperCase: boolean;
+  isFormatPhone: boolean;
+};
+
 export const clients = [
   {
     id: "cma164rx3000b0cl43y2a65uf",
